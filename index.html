@@ -3,30 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask Prediction</title>
+    <title>Price Prediction</title>
 </head>
 <body>
-    <h1>Import and Export Prediction</h1>
-    <form action="/predict" method="post">
-        <input type="submit" value="Get Predictions">
+    <h1>Airbnb Price Prediction</h1>
+    
+    <form method="POST">
+        <label for="room_type">Room Type:</label>
+        <input type="text" name="room_type" required><br><br>
+
+        <label for="neighbourhood_group">Neighbourhood Group:</label>
+        <input type="text" name="neighbourhood_group" required><br><br>
+
+        <label for="neighbourhood">Neighbourhood:</label>
+        <input type="text" name="neighbourhood" required><br><br>
+
+        <label for="latitude">Latitude:</label>
+        <input type="number" name="latitude" step="any" required><br><br>
+
+        <label for="longitude">Longitude:</label>
+        <input type="number" name="longitude" step="any" required><br><br>
+
+        <label for="number_of_reviews">Number of Reviews:</label>
+        <input type="number" name="number_of_reviews" required><br><br>
+
+        <label for="reviews_per_month">Reviews per Month:</label>
+        <input type="number" name="reviews_per_month" step="any" required><br><br>
+
+        <label for="availability_365">Availability in 365 days:</label>
+        <input type="number" name="availability_365" required><br><br>
+
+        <button type="submit">Predict Price</button>
     </form>
 
-    {% if predictions %}
-    <h2>Predictions for 2016 and 2017</h2>
-    <table border="1">
-        <tr>
-            <th>Year</th>
-            <th>Predicted Imports</th>
-            <th>Predicted Exports</th>
-        </tr>
-        {% for row in predictions.iterrows() %}
-        <tr>
-            <td>{{ row[1]['Year'] }}</td>
-            <td>{{ row[1]['Predicted Imports'] }}</td>
-            <td>{{ row[1]['Predicted Exports'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {% if predicted_price %}
+        <h2>The predicted price for the listing is: ${{ predicted_price }}</h2>
+    {% endif %}
+    
+    {% if error_message %}
+        <h2 style="color: red;">{{ error_message }}</h2>
     {% endif %}
 </body>
 </html>
